@@ -17,7 +17,9 @@ The "vist.py" is able to load both DII and SIS datasets.
 ```bash
 # locate your vist_directory, which contains images and annotations
 vist_dir = '/playpen/data/vist'
+# SIS instance
 sis = vist.Story_in_Sequence(vist_dir)
+# DII instance
 dii = vist.Description_in_Isolation(vist_dir)
 ```
 
