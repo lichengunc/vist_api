@@ -8,27 +8,25 @@ from scipy.misc import imread, imresize
 import matplotlib.pyplot as plt
 
 class Story_in_Sequence:
-	def __init__(self, vist_dir, splits=None):
+	def __init__(self, images_dir, annotations_dir, splits=None):
 		"""
 		The vist_dir should contain images and annotations, which further contain train/val/test.
-		"""
-		self.annotations_dir = osp.join(vist_dir, 'annotations')
-		self.images_dir = osp.join(vist_dir, 'images')
-
-		"""
 		We will load train/val/test together on default and add split in albums, and make mapping.
 		- albums  = [{id, title, vist_label, description, img_ids, story_ids}]
 		- images  = [{id, album_id, datetaken, title, text, tags}]
 		- sents   = [{id, story_id, album_id, img_id, order, original_text, text}]
 		- stories = [{id, story_id, album_id, sent_ids, img_ids}]
 		"""
+		self.images_dir = images_dir
+		self.annotations_dir = annotations_dir
+
 		# Load annotations and add splits to each album
 		if not splits:
 			splits = ['train', 'val', 'test']
 		sis = {'images': [], 'albums': [], 'annotations': []}
 		for split in splits:
 			b = datetime.now()
-			info = json.load(open(osp.join(self.annotations_dir, 'sis', split+'.story-in-sequence.json')))
+			info = json.load(open(osp.join(annotations_dir, 'sis', split+'.story-in-sequence.json')))
 			print 'sis\'s [%s] loaded. It took %.2f seconds.' % (split, (datetime.now() - b).total_seconds())
 			for album in info['albums']:
 				album['split'] = split
@@ -148,25 +146,24 @@ class Story_in_Sequence:
 
 
 class Description_in_Isolation:
-	def __init__(self, vist_dir, splits=None):
+	def __init__(self, images_dir, annotations_dir, splits=None):
 		"""
 		The vist_dir should contain images and annotations, which futher contain train/val/test
-		"""
-		self.annotations_dir = osp.join(vist_dir, 'annotations')
-		self.images_dir = osp.join(vist_dir, 'images')
-		"""
 		We will load train/val/test together on default and add split in albums, and make mapping.
 		- albums  = [{id, title, vist_label, description, img_ids}]
 		- images  = [{id, album_id, datetaken, title, text, tags}]
 		- sents   = [{id, album_id, img_id, order, original_text, text}], order no use???
 		"""
+		self.images_dir = images_dir
+		self.annotations_dir = annotations_dir
+
 		# Load annotations and add splits to each album
 		if not splits:
 			splits = ['train', 'val', 'test']
 		dii = {'images': [], 'albums': [], 'annotations': []}
 		for split in splits:
 			b = datetime.now()
-			info = json.load(open(osp.join(self.annotations_dir, 'dii', split+'.description-in-isolation.json')))
+			info = json.load(open(osp.join(annotations_dir, 'dii', split+'.description-in-isolation.json')))
 			print 'dii\'s [%s] loaded. It took %.2f seconds.' % (split, (datetime.now() - b).total_seconds())
 			for album in info['albums']:
 				album['split'] = split
