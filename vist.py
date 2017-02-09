@@ -106,7 +106,7 @@ class Story_in_Sequence:
 		img_content = imresize(img_content, (224, 224))
 		return img_content
 
-	def show_story(self, story_id, show_image=True):
+	def show_story(self, story_id, show_image=True, show_sents=True):
 		story = self.Stories[story_id]
 		sent_ids = story['sent_ids']
 		if show_image:
@@ -123,9 +123,10 @@ class Story_in_Sequence:
 				ax.axis('off')
 				ax.set_title(str(img_id)+'\n'+img['datetaken'][5:])
 			plt.show()
-		for sent_id in sent_ids:
-			sent = self.Sents[sent_id]
-			print '%s: img_id[%s], %s' % (sent['order'], sent['img_id'], sent['text'])
+		if show_sents:
+			for sent_id in sent_ids:
+				sent = self.Sents[sent_id]
+				print '%s: img_id[%s], %s' % (sent['order'], sent['img_id'], sent['text'])
 
 
 	def show_album(self, album_id):
