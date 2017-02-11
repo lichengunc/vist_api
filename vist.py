@@ -41,7 +41,7 @@ class Story_in_Sequence:
 			sent['id'] = sent.pop('storylet_id')
 			sent['order'] = sent.pop('worker_arranged_photo_order')
 			sent['img_id'] = sent.pop('photo_flickr_id')
-			sent['length'] = len(sent['text'].split())
+			sent['length'] = len(sent['text'].split())  # add length property
 			sents += [sent]
 
 		# make mapping
