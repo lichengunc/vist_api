@@ -14,7 +14,7 @@ class Story_in_Sequence:
 		We will load train/val/test together on default and add split in albums, and make mapping.
 		- albums  = [{id, title, vist_label, description, img_ids, story_ids}]
 		- images  = [{id, album_id, datetaken, title, text, tags}]
-		- sents   = [{id, story_id, album_id, img_id, order, original_text, text}]
+		- sents   = [{id, story_id, album_id, img_id, order, original_text, text, length}]
 		- stories = [{id, story_id, album_id, sent_ids, img_ids}]
 		"""
 		self.images_dir = images_dir
@@ -41,6 +41,7 @@ class Story_in_Sequence:
 			sent['id'] = sent.pop('storylet_id')
 			sent['order'] = sent.pop('worker_arranged_photo_order')
 			sent['img_id'] = sent.pop('photo_flickr_id')
+			sent['length'] = len(sent['text'].split())
 			sents += [sent]
 
 		# make mapping
